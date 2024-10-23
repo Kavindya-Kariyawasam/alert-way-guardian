@@ -1,1 +1,1 @@
-# AlertWay_Guardian_1st_Year_Hardware_Project
+# AlertWay Guardian - Women and Child Safety Device
