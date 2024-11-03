@@ -14,8 +14,8 @@ HardwareSerial neo6m(1); // Use hardware serial port 1 on ESP32
 BH1750 lightMeter;  // Create an instance of the BH1750 sensor
 
 // WiFi credentials
-const char* ssid = "Mano";
-const char* password = "12345678";
+const char* ssid = "<SSID>";
+const char* password = "<PASSWORD>";
 // int runOnce = 1;
 
 // Touch sensor and actuator pins

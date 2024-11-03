@@ -9,36 +9,36 @@ SoftwareSerial neo6m(gpsTxPin, gpsRxPin);
 
 TinyGPSPlus gps;
 
-const char* ssid = "Galaxy S21 FE 5G 64df";
-const char* password = "kdma5906";
+const char* ssid = "<SSID>";
+const char* password = "<PASSWORD>";
 int runOnce = 1;
 
-// void sendMsg() {
-//     HTTPClient http;
-//     WiFiClientSecure wifiClient;
-//     wifiClient.setInsecure();
+void sendMsg() {
+    HTTPClient http;
+    WiFiClientSecure wifiClient;
+    wifiClient.setInsecure();
 
-//     http.begin(wifiClient, "https://app.notify.lk/api/v1/send");
-//     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    http.begin(wifiClient, "https://app.notify.lk/api/v1/send");
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-//     // replace user_id & api_key vakues with your new values (Current values are for Robin Hood)
-//     String httpRequestData = "user_id=26989&api_key=uZGg7vlV6lzvyW6BcBwH&sender_id=NotifyDEMO&to=contactNumber&message=MSG String";
-//     String msgString = "Emergency";
-//     String receiverNumber = "94724043919";
-//     httpRequestData.replace("MSG String", msgString);
-//     httpRequestData.replace("contactNumber", receiverNumber);
-//     int httpCode = http.POST(httpRequestData);
-//     Serial.println(httpCode);
+    // replace user_id & api_key values with your new values
+    String httpRequestData = "user_id=<USER_ID>&api_key=<API_KEY>&sender_id=NotifyDEMO&to=contactNumber&message=MSG String";
+    String msgString = "Emergency";
+    String receiverNumber = "<Mobile number(94#########)>";
+    httpRequestData.replace("MSG String", msgString);
+    httpRequestData.replace("contactNumber", receiverNumber);
+    int httpCode = http.POST(httpRequestData);
+    Serial.println(httpCode);
 
-//     if (httpCode > 0) {
-//       String payload = http.getString();
-//       Serial.println(payload);
-//     } else {
-//       Serial.println("Error on HTTP request");
-//     }
+    if (httpCode > 0) {
+      String payload = http.getString();
+      Serial.println(payload);
+    } else {
+      Serial.println("Error on HTTP request");
+    }
 
-//     http.end();
-// }
+    http.end();
+}
 
 static void smartdelay_gps(unsigned long ms)
 {
@@ -83,10 +83,10 @@ void sendMsg(int emg_mode, float lat, float lon) {
     http.begin(wifiClient, "https://app.notify.lk/api/v1/send");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // replace user_id & api_key vakues with your new values (Current values are for Robin Hood)
+    // replace user_id & api_key vakues with your new values
     String mapLink = generateMapLink(lat, lon);
-    String receiverNumber = "94724043919";
-    String httpRequestData = "user_id=27348&api_key=j7WAzi6LIQ6eywOsbTbl&sender_id=NotifyDEMO&to=contactNumber&message=MSG String";
+    String receiverNumber = "<Mobile number(94#########)>";
+    String httpRequestData = "user_id=<USER_ID>&api_key=<API_KEY>&sender_id=NotifyDEMO&to=contactNumber&message=MSG String";
     String msgString;
     if (emg_mode == 0) {
       msgString = "Emergency\n\n" + mapLink;
@@ -124,7 +124,6 @@ void getLocation_sendMSG(int mode) {
           Serial.print(gps.location.lng(), 6);
           Serial.println();
 
-          // sendMsg(0, 6.892940, 79.904337);     // remove this hardcoded values
           sendMsg(mode, gps.location.lat(), gps.location.lng());
           runOnce=0;
 

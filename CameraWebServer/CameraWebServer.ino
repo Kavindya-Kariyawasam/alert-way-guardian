@@ -35,8 +35,8 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
-const char* ssid = "HUAWEI Y7 Pro 2019";
-const char* password = "keerthigmg";
+const char* ssid = "<SSID>";
+const char* password = "<PASSWORD>";
 
 void startCameraServer();
 void setupLedFlash(int pin);

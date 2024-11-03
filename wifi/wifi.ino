@@ -1,8 +1,3 @@
-/*
-  Example from WiFi > WiFiScan
-  Complete details at https://RandomNerdTutorials.com/esp32-useful-wi-fi-functions-arduino/
-*/
-
 #include "WiFi.h"
 
 void setup() {
@@ -41,6 +36,6 @@ void loop() {
   }
   Serial.println("");
 
-  // Wait a bit before scanning again
+  // Wait 5 seconds before scanning again
   delay(5000);
 }
