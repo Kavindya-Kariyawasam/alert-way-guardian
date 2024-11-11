@@ -1,0 +1,3 @@
+[submodule "cam-server"]
+	path = cam-server
+	url = https://github.com/Shehan013/esp32cam-server.git
