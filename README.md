@@ -25,7 +25,7 @@ The device includes a variety of sensors to monitor surroundings and, in emergen
 - Dineth Gamage
 - [Lasini Pallewatte](https://github.com/lasiniip)
 - [Manodi Gamage](https://github.com/manodi-gamage)
-- [Kavidnya Kariyawasam](https://github.com/Kavindya-Kariyawasam)
+- [Kavindya Kariyawasam](https://github.com/Kavindya-Kariyawasam)
 
 
 #### How to Setup the Environment Variables for the Microphone WebSocket Server
