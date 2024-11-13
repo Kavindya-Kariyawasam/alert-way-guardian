@@ -4,7 +4,8 @@ In response to rising safety concerns for women and children, especially in urba
 
 The device includes a variety of sensors to monitor surroundings and, in emergencies, automatically alerts a designated contact. A user-friendly panic button enables real-time data sharing with an emergency contact while triggering a loud alarm to deter potential threats. Additionally, it captures video and audio and uploads it to Azure Cloud in real time in an emergency.
 
-[View Project Report](report/project-report-alert-way-guardian.pdf)
+[View Project Report on Google Drive(suggested)](https://drive.google.com/file/d/15ZoKAmLVrlMV1tzM6Qf1nSS_WbsrMQF1/view?usp=sharing)
+[View Project Report on GitHub](report/project-report-alert-way-guardian.pdf)
 
 
 ### Key Components and Features:
