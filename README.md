@@ -55,4 +55,140 @@ SERVER_PORT=8080
 | `AZURE_STORAGE_CONNECTION_STRING` | Azure Storage account connection string | Yes      | None      |
 | `AZURE_CONTAINER_NAME`            | Name of the Azure Storage container     | Yes      | None      |
 | `SERVER_HOST`                     | Host address for the WebSocket server   | No       | '0.0.0.0' |
-| `SERVER_PORT`                     | Port number for the WebSocket server    | No       | 8080      |
+| `SERVER_PORT`                     | Port number for the WebSocket server    | No       | 8080      |  
+
+---  
+
+## GPS Emergency Location Tracking System
+
+## Overview
+This project implements an emergency location tracking system using an ESP32 microcontroller and NEO-8M GPS module. The system is designed to send location-based emergency alerts through SMS, with a fallback to IP-based geolocation when GPS signals are unavailable.
+
+## Features
+- Real-time GPS location tracking
+- Automatic fallback to Google Geolocation API when GPS signal is weak/unavailable
+- Emergency message dispatch with location links
+- Configurable timeout and messaging intervals
+- Support for different emergency modes (general emergency/health emergency)
+- Google Maps integration for easy location sharing
+
+## Hardware Components
+- ESP32 Development Board
+- NEO-8M GPS Module
+- Required connecting wires
+
+### About NEO-8M GPS Module
+The NEO-8M is a high-performance GPS module that offers significant improvements over its predecessor, the NEO-6M. Key specifications:
+- Operating voltage: 2.7V to 3.6V
+- Navigation update rate: up to 10Hz
+- Position accuracy: 2.0m CEP (Circular Error Probable)
+- Time to First Fix:
+  - Cold start: 26s
+  - Hot start: <1s
+  - Aided start: 2s
+- Sensitivity:
+  - Tracking & Navigation: -167 dBm
+  - Reacquisition: -160 dBm
+  - Cold start: -148 dBm
+- Operating temperature: -40°C to 85°C
+- Improved multipath detection and suppression
+- Superior jam detection and mitigation capabilities
+
+## Software Dependencies
+```cpp
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <WiFiClientSecure.h>
+#include <HardwareSerial.h>
+#include <TinyGPS++.h>
+#include <Arduino.h>
+#include <ArduinoJson.h>
+```
+
+## Working Principle
+1. **Primary GPS Location Detection**:
+   - System continuously monitors GPS signals through the NEO-8M module
+   - Location updates are processed every 8 seconds (configurable)
+   - Valid coordinates trigger immediate emergency message dispatch
+
+2. **Fallback Mechanism**:
+   - If GPS fails to get a fix within 6 minutes (configurable)
+   - System switches to Google Geolocation API
+   - Uses WiFi BSSID and signal strength for location approximation
+
+3. **Message Dispatch**:
+   - Generates Google Maps link with coordinates
+   - Formats emergency message based on emergency type
+   - Sends SMS through notify.lk API (currently in simulation mode) [Code](esp32-codes/Gps_MsgAPI_GeoLoc_CompleteFunctionality)
+   - Includes accuracy metrics when using IP-based location
+
+## Configuration
+### Required Setup
+```cpp
+const char* ssid = "<SSID>";              // WiFi SSID
+const char* password = "<PASSWORD>";       // WiFi password
+const char* apiKey = "<API_KEY>";         // Google Geolocation API key
+```
+
+### Pin Configuration
+```cpp
+#define gpsRxPin 16                       // GPS module RX pin
+#define gpsTxPin 17                       // GPS module TX pin
+```
+
+### Timing Parameters
+```cpp
+const unsigned long gpsTimeout = 360000;   // GPS timeout (6 minutes)
+const unsigned long msgInterval = 8000;    // Message interval (8 seconds)
+```
+
+## Installation & Setup
+1. Install required Arduino libraries
+2. Connect NEO-6M GPS module to ESP32:
+   - GPS VCC → 3.3V
+   - GPS GND → GND
+   - GPS TX → GPIO16 (RX2)
+   - GPS RX → GPIO17 (TX2)
+3. Configure WiFi credentials
+4. Add Google Geolocation API key
+5. Configure notify.lk API credentials (when using actual SMS service)
+
+## Location Format
+The system generates Google Maps links in the format:
+```
+https://www.google.com/maps/place/[latitude][N/S][longitude][E/W]/
+```
+
+## Error Handling
+- GPS timeout management
+- WiFi connection monitoring
+- HTTP request error handling
+- JSON parsing error detection
+
+## Future Improvements
+- Battery monitoring capability
+- Multiple emergency contact support
+- Custom emergency message templates
+- Power optimization features
+
+## Notes
+- Current implementation uses simulated message sending for testing
+- Original SMS implementation through notify.lk is preserved in comments
+- System designed for emergency use - consider reliability and power backup
+- GPS accuracy may vary based on environmental conditions
+
+## Technical Considerations
+- NEO-8M requires clear sky view for optimal performance
+- Initial GPS fix may take longer in cold start conditions
+- WiFi-based geolocation accuracy depends on database coverage
+- Consider local privacy laws when implementing location tracking
+
+## Credits
+### GPS Module Integration & Location Services
+  - ** Developer**: [Kavindya Kariyawasam](https://github.com/Kavindya-Kariyawasam) 
+  - *Contributions*:
+    - Complete GPS module integration
+    - Location tracking system implementation
+    - Google Geolocation API fallback system
+    - Emergency messaging system
+    - Documentation and testing
