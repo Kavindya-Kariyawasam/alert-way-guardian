@@ -8,18 +8,26 @@ The device includes a variety of sensors to monitor surroundings and, in emergen
 
 [View Project Report on GitHub](report/project-report-alert-way-guardian.pdf)
 
+---
 
-### Key Components and Features:
+## 🔑 Key Features
+- 📍 **GPS Location Tracking** – Neo-M8N GPS with Google Map link generation + IP-based fallback.
+- 💡 **Light Sensing** – BH1750 sensor triggers jumbo LEDs in low-light environments.
+- 📲 **Emergency Alerts** – SMS via Notify.lk API with location & incident type.
+- ⚠ **Fall & Motion Detection** – Gyroscope-based auto-trigger.
+- 🎥 **Evidence Capture** – ESP32-CAM for real-time video & audio recording.
+- 🔊 **Haptic & Audible Alerts** – Vibration motor + buzzer activation.
+- ☁ **Cloud Integration** – Microsoft Azure Blob Storage for secure data.
+- 🔌 **Custom PCB Design** – Compact, power-optimized integration of all modules.
 
-- ESP32 WROOM 32U: Main development board
-- Touch Sensors: Emergency activation/deactivation
-- GPS Module: Provides immediate location data
-- Accelerometer: Detects sudden movements or falls
-- Microphone: Captures audio in real-time
-- ESP32 Camera Module: Captures images for video generation
-- Light-Intensity Sensor: Provide data to control LEDs
-- Vibration Motor: Provides signals to user on activation
-- Buzzer Module: Sounds in emergency situations
+---
+
+## 🛠 Tech Stack & Hardware
+**Microcontroller:** ESP32-WROOM-32U  
+**Modules & Sensors:** Neo-M8N GPS · BH1750 Light Sensor · MPU6050 Gyroscope · ESP32-CAM · INMP441 Microphone · Vibration Motor · YL-44 Buzzer · TTP223 Touch Sensor  
+**Connectivity:** Wi-Fi via ESP32, Notify.lk API  
+**Cloud:** Microsoft Azure Blob Storage  
+**PCB:** Custom-designed with integrated power management
 
 ### Kudos to our team:
 
